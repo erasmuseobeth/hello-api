@@ -36,10 +36,10 @@ app.get('/api', async (req, res) => {
 
 
 app.get('/api/hello', async (req, res) => {
-  const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
   const visitorName = req.query.visitor_name || 'Guest';
   
   // Determine which IP address to use based on `useFixedIpAddress` flag
+  const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
   // clientIp = fixedIpAddress
   const clientIp =  req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const sanitizedIp = clientIp.includes('::') ? '127.0.0.1' : clientIp;
@@ -66,6 +66,6 @@ app.get('/api/hello', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', ()  => {
   console.log(`Server is running on port ${port}`);
 });
