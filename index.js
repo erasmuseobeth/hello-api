@@ -7,6 +7,37 @@ const port = process.env.PORT || 3000;
 const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
 let useFixedIpAddress = false; // Set to true to use fixed IP address, false to use client IP
 
+
+
+
+
+// Root endpoint
+app.get('/', async (req, res) => {
+
+  res.json({
+    message: 'Welcome to the Home API endpoint',
+    endpoints: {
+      home: '/',
+      api: '/api',
+      hello: '/api/hello',  
+    }
+  });
+});
+
+// API endpoint
+app.get('/api', async (req, res) => {
+  res.json({
+    message: 'API DOCS endpoint',
+    endpoints: {
+      home: '/',
+      api: '/api',
+      hello: '/api/hello',  // Assuming you have a /api/hello endpoint
+      // Add more endpoints as needed
+    }
+  });
+});
+
+
 app.get('/api/hello', async (req, res) => {
   const visitorName = req.query.visitor_name || 'Guest';
   
