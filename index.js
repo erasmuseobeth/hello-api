@@ -3,8 +3,6 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Define the fixed IP address and client IP address variables
-const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
 
 
 
@@ -12,7 +10,7 @@ const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
 
 // Root endpoint
 app.get('/', async (req, res) => {
-
+  
   res.json({
     message: 'Welcome to the Home API endpoint',
     endpoints: {
@@ -38,11 +36,12 @@ app.get('/api', async (req, res) => {
 
 
 app.get('/api/hello', async (req, res) => {
+  const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
   const visitorName = req.query.visitor_name || 'Guest';
   
   // Determine which IP address to use based on `useFixedIpAddress` flag
-  clientIp = fixedIpAddress
-  // const clientIp =  req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  // clientIp = fixedIpAddress
+  const clientIp =  req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const sanitizedIp = clientIp.includes('::') ? '127.0.0.1' : clientIp;
 
   try {
