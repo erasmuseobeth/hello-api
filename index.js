@@ -5,7 +5,6 @@ const port = process.env.PORT || 3000;
 
 // Define the fixed IP address and client IP address variables
 const fixedIpAddress = '196.220.66.189'; // Replace with your fixed IP address
-let useFixedIpAddress = false; // Set to true to use fixed IP address, false to use client IP
 
 
 
@@ -42,7 +41,8 @@ app.get('/api/hello', async (req, res) => {
   const visitorName = req.query.visitor_name || 'Guest';
   
   // Determine which IP address to use based on `useFixedIpAddress` flag
-  const clientIp = useFixedIpAddress ? fixedIpAddress : (req.headers['x-forwarded-for'] || req.socket.remoteAddress);
+  clientIp = fixedIpAddress
+  // const clientIp =  req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   const sanitizedIp = clientIp.includes('::') ? '127.0.0.1' : clientIp;
 
   try {
